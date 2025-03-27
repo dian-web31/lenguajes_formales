@@ -1,12 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Body, Post } from '@nestjs/common';
 import { AppService } from './app.service';
+import { GramaticaDto } from './gramatica/dto/gramatica.dto';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('language')
-  generarLenguaje(): Array<string {
-    return this.appService.generarLenguaje({});
+  @Post('generar-lenguaje')
+  generarLenguaje(@Body() gramaticaDto: GramaticaDto): { lenguaje: string } {
+    const lenguaje = this.appService.generarLenguaje(gramaticaDto);
+    return { lenguaje };
   }
 }
